@@ -5,6 +5,8 @@ import 'package:login_signup_ui_starter/widgets/checkbox.dart';
 import 'package:login_signup_ui_starter/widgets/login_option.dart';
 import 'package:login_signup_ui_starter/widgets/primary_button.dart';
 import 'package:login_signup_ui_starter/widgets/signup_form.dart';
+import 'package:login_signup_ui_starter/screens/mainpage.dart';
+
 
 class SignUpScreen extends StatelessWidget {
   @override
@@ -80,30 +82,47 @@ class SignUpScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
+            // Padding(
+            //   padding: kDefaultPadding,
+            //   child: PrimaryButton(buttonText: 'Sign Up'),
+            // ),
             Padding(
               padding: kDefaultPadding,
-              child: PrimaryButton(buttonText: 'Sign Up'),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: kDefaultPadding,
-              child: Text(
-                'Or log in with:',
-                style: subTitle.copyWith(color: kBlackColor),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MainScreen()));
+                    },
+                      child: PrimaryButton(buttonText: 'Sign Up')
+
+                  )
+                ],
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: kDefaultPadding,
-              child: LoginOption(),
-            ),
-            SizedBox(
-              height: 20,
-            ),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // Padding(
+            //   padding: kDefaultPadding,
+            //   child: Text(
+            //     'Or log in with:',
+            //     style: subTitle.copyWith(color: kBlackColor),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // Padding(
+            //   padding: kDefaultPadding,
+            //   child: LoginOption(),
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
           ],
         ),
       ),

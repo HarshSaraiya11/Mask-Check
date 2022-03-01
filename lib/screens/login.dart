@@ -5,6 +5,7 @@ import 'package:login_signup_ui_starter/theme.dart';
 import 'package:login_signup_ui_starter/widgets/login_form.dart';
 import 'package:login_signup_ui_starter/widgets/login_option.dart';
 import 'package:login_signup_ui_starter/widgets/primary_button.dart';
+import 'package:login_signup_ui_starter/screens/mainpage.dart';
 
 class LogInScreen extends StatelessWidget {
   @override
@@ -17,8 +18,9 @@ class LogInScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 120,
+                height: 100,
               ),
+              Image.asset('assets/images/itdeptlogo.png'),
               Text(
                 'Welcome Back',
                 style: titleText,
@@ -81,21 +83,26 @@ class LogInScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              PrimaryButton(
-                buttonText: 'Log In',
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Or log in with:',
-                style: subTitle.copyWith(color: kBlackColor),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              LoginOption(),
-            ],
+            Padding(
+              padding:kDefaultPadding,
+              child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MainScreen()));
+              },
+                child: PrimaryButton(buttonText: 'Sign Up')
+                // Text(
+                //   'Or log in with:',
+                //   style: subTitle.copyWith(color: kBlackColor),
+                // ),
+                // SizedBox(
+                //   height: 20,
+                // ),
+                // LoginOption(),
+              ,
+            ))],
           ),
         ),
       ),

@@ -9,7 +9,7 @@ class PrimaryButton extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       height: MediaQuery.of(context).size.height * 0.08,
-      width: double.infinity,
+      width: 332,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16), color: kPrimaryColor),
       child: Text(

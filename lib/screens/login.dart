@@ -6,6 +6,7 @@ import 'package:login_signup_ui_starter/widgets/login_form.dart';
 import 'package:login_signup_ui_starter/widgets/login_option.dart';
 import 'package:login_signup_ui_starter/widgets/primary_button.dart';
 import 'package:login_signup_ui_starter/screens/mainpage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LogInScreen extends StatelessWidget {
   @override
@@ -47,7 +48,7 @@ class LogInScreen extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      'Sign Up',
+                      'Sign In',
                       style: textButton.copyWith(
                         decoration: TextDecoration.underline,
                         decorationThickness: 1,
@@ -92,7 +93,7 @@ class LogInScreen extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => MainScreen()));
               },
-                child: PrimaryButton(buttonText: 'Sign Up')
+                child: PrimaryButton(buttonText: 'Log In')
                 // Text(
                 //   'Or log in with:',
                 //   style: subTitle.copyWith(color: kBlackColor),

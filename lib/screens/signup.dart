@@ -6,6 +6,7 @@ import 'package:login_signup_ui_starter/widgets/login_option.dart';
 import 'package:login_signup_ui_starter/widgets/primary_button.dart';
 import 'package:login_signup_ui_starter/widgets/signup_form.dart';
 import 'package:login_signup_ui_starter/screens/mainpage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 class SignUpScreen extends StatelessWidget {
@@ -68,17 +69,17 @@ class SignUpScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: kDefaultPadding,
-              child: CheckBox('Agree to terms and conditions.'),
-            ),
+            //Padding(
+              //padding: kDefaultPadding,
+              //child: CheckBox('Agree to terms and conditions.'),
+            //),
             SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: kDefaultPadding,
-              child: CheckBox('I have at least 18 years old.'),
-            ),
+            //Padding(
+              //padding: kDefaultPadding,
+              //child: CheckBox('I have at least 18 years old.'),
+            //),
             SizedBox(
               height: 20,
             ),

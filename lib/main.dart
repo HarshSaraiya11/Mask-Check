@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:login_signup_ui_starter/screens/login.dart';
+import 'package:firebase_core/firebase_core.dart';
+// Future main() async {
+//   widgetsFlutterBinding.esureInitialized();
+//   await Firebase.initializeApp();
+//
+//   runApp(MyApp());
+// }
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 

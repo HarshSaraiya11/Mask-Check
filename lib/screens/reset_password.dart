@@ -39,7 +39,7 @@ class ResetPasswordScreen extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LogInScreen(),
+                        builder: (context) => Login(),
                       ));
                 },
                 child: PrimaryButton(buttonText: 'Reset Password')),

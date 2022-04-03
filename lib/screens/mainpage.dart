@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:login_signup_ui_starter/screens/addusers.dart';
 import 'package:login_signup_ui_starter/screens/login.dart';
 import 'package:login_signup_ui_starter/theme.dart';
 import 'package:login_signup_ui_starter/widgets/primary_button.dart';
@@ -44,6 +45,11 @@ class _MainScreen extends State<Mainpage>{
     // await googleSignIn.signOut();
   }
 
+
+  adduser() async {
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> AddUser()));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -63,7 +69,9 @@ class _MainScreen extends State<Mainpage>{
             children: [
               AppBar(title: Text("Hello ${user.displayName}"),
               backgroundColor: kPrimaryColor,
-                actions: [TextButton(onPressed: signOut, child: Text("SignOut", style: TextStyle(color: kWhiteColor),))],
+                actions: [PopupMenuButton(icon: Icon(Icons.more_horiz),itemBuilder: (context) =>
+                  [PopupMenuItem(value: 1,child: TextButton(onPressed: adduser,child: Text("Add entries", style: TextStyle(color: kBlackColor),),)),
+                  PopupMenuItem(value: 2,child: TextButton(onPressed: signOut,child: Text("SignOut", style: TextStyle(color: kBlackColor),),))]),],
               ),
               Padding(
                 padding: kDefaultPadding
@@ -80,6 +88,7 @@ class _MainScreen extends State<Mainpage>{
                       leading: CircleAvatar(
                         backgroundImage: AssetImage('assets/images/profile_image.png'),
                         backgroundColor: kPrimaryColor,
+                        foregroundImage: AssetImage('assets/images/profile_image.png'),
                       ),
                       title: Text(list[index]),
                       subtitle: Text("was seen not wearing a mask in the college premises!"),

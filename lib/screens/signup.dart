@@ -216,26 +216,6 @@ class SignUpScreen extends State<SignUp> {
                   ],
                 ),
               ),
-              // SizedBox(
-              //   height: 20,
-              // ),
-              // Padding(
-              //   padding: kDefaultPadding,
-              //   child: Text(
-              //     'Or log in with:',
-              //     style: subTitle.copyWith(color: kBlackColor),
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: 20,
-              // ),
-              // Padding(
-              //   padding: kDefaultPadding,
-              //   child: LoginOption(),
-              // ),
-              // SizedBox(
-              //   height: 20,
-              // ),
             ],
           ),
         ),

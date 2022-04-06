@@ -33,6 +33,7 @@ dependencies:
   firebase_core: ^1.13.1
   firebase_database: ^9.0.8
   firebase_storage:
+  firebase_messaging: ^11.2.12
 
 
 dev_dependencies:

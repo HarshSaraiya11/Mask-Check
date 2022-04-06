@@ -34,7 +34,7 @@ class AddUserScreen extends State<AddUser> {
     });
   }
 
-   adduser() {
+   adduser(url) {
     if (_formKey.currentState.validate()) {
       setState(() {
         _name = nameController.text;
@@ -48,7 +48,7 @@ class AddUserScreen extends State<AddUser> {
           "phone": _phone,
           "moodle id": _moodle,
           "designation": designation,
-          "profilepicurl" : profilepicurl
+          "profilepicurl" : url
         };
         CollectionReference collectionReference = FirebaseFirestore.instance
             .collection('users');
@@ -77,10 +77,11 @@ class AddUserScreen extends State<AddUser> {
           (value) => print("Don   e: $value"),
     );*/
 
-    taskSnapshot.ref.getDownloadURL().then((fileURL) {
+    await taskSnapshot.ref.getDownloadURL().then((fileURL) {
       value = fileURL;
     });
 
+    //await print(value);
     return value;
 
   }
@@ -242,8 +243,7 @@ class AddUserScreen extends State<AddUser> {
                       GestureDetector(
                           onTap: () async{
                             String url = await uploadImageToFirebase(context);
-                            print(url);
-                            await adduser();
+                            await adduser(url);
                             Navigator.pop(context);
                             Navigator.pop(context);
                           },

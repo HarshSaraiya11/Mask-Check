@@ -93,8 +93,7 @@ class AddUserScreen extends State<AddUser> {
         padding: kDefaultPadding,
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+             children: [
                 SizedBox(
                   height: 50,
                 ),
@@ -247,7 +246,7 @@ class AddUserScreen extends State<AddUser> {
                             Navigator.pop(context);
                             Navigator.pop(context);
                           },
-                          child: PrimaryButton(buttonText: 'Add $designation')
+                          child: PrimaryButton(buttonText: 'Add $designation', width: 330,)
                       )
                     ],
                   ),

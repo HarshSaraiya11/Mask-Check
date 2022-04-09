@@ -19,3 +19,8 @@ TextStyle textButton = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w700,
 );
+TextStyle primary = TextStyle(
+  color: kPrimaryColor,
+  fontSize: 25,
+  fontWeight: FontWeight.w700,
+);

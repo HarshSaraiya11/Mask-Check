@@ -210,7 +210,7 @@ class SignUpScreen extends State<SignUp> {
                   children: [
                     GestureDetector(
                       onTap: signUp,
-                        child: PrimaryButton(buttonText: 'Sign Up')
+                        child: PrimaryButton(buttonText: 'Sign Up', width: 316,)
 
                     )
                   ],

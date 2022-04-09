@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_signup_ui_starter/screens/addusers.dart';
@@ -46,17 +47,64 @@ class _MainScreen extends State<Mainpage>{
     // await googleSignIn.signOut();
   }
 
-
   adduser() async {
     Navigator.push(context, MaterialPageRoute(builder: (context)=> AddUser()));
   }
+
+  catchData() async {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message)
+    {
+      print("message received while on foreground");
+      print('Message data: ${message.data}');
+      print(message.notification.body);
+    });
+
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  }
+
 
   @override
   void initState() {
     super.initState();
     this.checkAuthentication();
     this.getUser();
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    messaging.getToken().then((value){
+      print(value);
+    });
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print("message received while on foreground");
+      print('Message data: ${message.data}');
+      print(message.notification.body);
+    });
+
+
+    FirebaseMessaging.onMessageOpenedApp.listen((message) async{
+      var received = message.data;
+      var time = message.sentTime;
+      print(time);
+      Navigator.pushNamed(context, '/guest', arguments: [received, time]);
+    });
   }
+
+  // Widget _buildStreamBuilder(){
+  //   return Scaffold(
+  //     body: Padding(
+  //       padding: kDefaultPadding,
+  //       child: SingleChildScrollView(
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             SizedBox(
+  //               height: 50,
+  //             ),
+  //             Text(received['name'])
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +112,8 @@ class _MainScreen extends State<Mainpage>{
     return Scaffold(
       body: Container(
         color: Colors.white,
-        child: !isloggedin? CircularProgressIndicator():
+        child: !isloggedin? Center(
+            child: CircularProgressIndicator()):
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -77,30 +126,39 @@ class _MainScreen extends State<Mainpage>{
               Padding(
                 padding: kDefaultPadding
               ),
-
               Flexible(
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  // shrinkWrap: true,
-                  itemCount: list.length,
-                  itemBuilder: (context, index)
-                  {
-                    return ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage('assets/images/profile_image.png'),
-                        backgroundColor: kPrimaryColor,
-                        foregroundImage: AssetImage('assets/images/profile_image.png'),
-                      ),
-                      title: Text(list[index]),
-                      subtitle: Text("was seen not wearing a mask in the college premises!"),
-                    );
-                  },
-                ),
-              )
+                child: Container(padding: kDefaultPadding,
+                  child: Center(child: Text("No one is detected without mask!",style: subTitle)),),
+              ),
+
+              // Flexible(
+              //   child: ListView.builder(
+              //     scrollDirection: Axis.vertical,
+              //     // shrinkWrap: true,
+              //     itemCount: list.length,
+              //     itemBuilder: (context, index)
+              //     {
+              //       return ListTile(
+              //         leading: CircleAvatar(
+              //           backgroundImage: AssetImage('assets/images/profile_image.png'),
+              //           backgroundColor: kPrimaryColor,
+              //           foregroundImage: AssetImage('assets/images/profile_image.png'),
+              //         ),
+              //         title: Text(list[index]),
+              //         subtitle: Text("was seen not wearing a mask in the college premises!"),
+              //       );
+              //     },
+              //   ),
+              // )
               
             ],
           ),
       ),
     );
+  }
+
+  Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+    await Firebase.initializeApp();
+    print("Handling a background message: ${message.messageId}");
   }
 }

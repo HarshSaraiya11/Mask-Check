@@ -35,6 +35,7 @@ dependencies:
   firebase_storage:
   firebase_messaging: ^11.2.12
   firebase_analytics: ^9.1.4
+  intl: ^0.17.0
 
 
 dev_dependencies:
@@ -54,6 +55,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/profile_image.png
     - assets/images/itdeptlogo.png
   #   - images/a_dot_ham.jpeg
 

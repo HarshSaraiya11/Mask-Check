@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:login_signup_ui_starter/screens/addusers.dart';
 import 'package:login_signup_ui_starter/screens/login.dart';
 import 'package:login_signup_ui_starter/theme.dart';
-import 'package:login_signup_ui_starter/widgets/primary_button.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+
 
 class Mainpage extends StatefulWidget{
   @override
@@ -18,6 +20,8 @@ class _MainScreen extends State<Mainpage>{
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User user;
   bool isloggedin= false;
+  Stream collectionStream = FirebaseFirestore.instance.collection('notifications').orderBy('time', descending: true).snapshots();
+
 
   checkAuthentication() async{
 
@@ -108,7 +112,6 @@ class _MainScreen extends State<Mainpage>{
 
   @override
   Widget build(BuildContext context) {
-    var list = List<String>.generate(100, (i) => 'Item $i');
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -123,14 +126,37 @@ class _MainScreen extends State<Mainpage>{
                   [PopupMenuItem(value: 1,child: TextButton(onPressed: adduser,child: Text("Add entries", style: TextStyle(color: kBlackColor),),)),
                   PopupMenuItem(value: 2,child: TextButton(onPressed: signOut,child: Text("SignOut", style: TextStyle(color: kBlackColor),),))]),],
               ),
-              Padding(
-                padding: kDefaultPadding
-              ),
               Flexible(
-                child: Container(padding: kDefaultPadding,
-                  child: Center(child: Text("No one is detected without mask!",style: subTitle)),),
-              ),
-
+                child: StreamBuilder<QuerySnapshot>(
+                    stream: collectionStream,
+                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+                      if (!snapshot.hasData) {
+                        return Container(
+                          // padding: kDefaultPadding,
+                          child: Center(child: Text("No one is detected without mask!",style: subTitle)),);
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      return ListView(scrollDirection: Axis.vertical,shrinkWrap: true,
+                          children: snapshot.data.docs.map((DocumentSnapshot document) {
+                        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                        return ListTile(
+                            leading: CircleAvatar(
+                                      backgroundImage: AssetImage("assets/images/profile_image.png"),
+                                      foregroundImage: NetworkImage(data['profilepicurl']),
+                                      backgroundColor: kPrimaryColor,
+                                      radius: 25,
+                                    ),
+                          title: Text(data['name']),
+                          subtitle: Text(data['text'],),
+                        trailing: Text(DateFormat.jm().format(data['time'].toDate())),
+                        onTap: () => Navigator.pushNamed(context, '/guest'));
+                      }).toList(),
+                      );
+                    },
+                ),
+              )
               // Flexible(
               //   child: ListView.builder(
               //     scrollDirection: Axis.vertical,
@@ -150,8 +176,7 @@ class _MainScreen extends State<Mainpage>{
               //     },
               //   ),
               // )
-              
-            ],
+              ],
           ),
       ),
     );

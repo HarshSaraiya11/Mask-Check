@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:login_signup_ui_starter/theme.dart';
 import 'package:login_signup_ui_starter/screens/mainpage.dart';
 import 'package:intl/intl.dart';
-
+import 'mainpage.dart';
 
 class Guest extends StatefulWidget{
   @override
@@ -73,11 +74,13 @@ class GuestProfile extends State<Guest> {
   @override
   Widget build(BuildContext context) {
     // final  Map<String, dynamic>rcvdData = ModalRoute.of(context).settings.arguments;
-    List<dynamic> rcvdData = ModalRoute.of(context).settings.arguments;
+    Map<String, dynamic> rcvdData = ModalRoute.of(context).settings.arguments;
     // Map<String, dynamic>stream = ModalRoute.of(context).settings.arguments;
     // List<dynamic> stream = ModalRoute.of(context).settings.arguments;
     // var datetime = DateFormat.yMd().add_jm().format(stream[0].toDate);
-    // print(datetime);
+    // List<dynamic> time = ModalRoute.of(context).settings.arguments;
+    var time = DateFormat.yMd().add_jm().add_E().format(rcvdData['time'].toDate());
+
     return Scaffold(
           body: Container(
               padding: EdgeInsets.zero,
@@ -89,8 +92,7 @@ class GuestProfile extends State<Guest> {
                       child: Container(
                         color: kPrimaryColor,
                         padding: EdgeInsets.fromLTRB(125, 30, 125, 50),
-                        child: CircleAvatar(
-                          foregroundImage: NetworkImage(rcvdData[0]['profilepicurl']),
+                        child: CircleAvatar(foregroundImage: NetworkImage(rcvdData['profilepicurl']),
                           radius: 75,
                         ),
                       ),
@@ -101,7 +103,7 @@ class GuestProfile extends State<Guest> {
                     Padding(
                       padding: kDefaultPadding,
                       child: Text(
-                        '${rcvdData[0]['name']}',
+                        '${rcvdData['name']}',
                         style: primary,
                       ),
                     ),
@@ -118,22 +120,22 @@ class GuestProfile extends State<Guest> {
                         children: [
                           ListTile(
                             leading: Text("Designation", textAlign: TextAlign.left,),
-                            title: Text('${rcvdData[0]['designation']}',textAlign: TextAlign.right,),
+                            title: Text('${rcvdData['designation']}',textAlign: TextAlign.right,),
                           ),
                           Divider(indent:10,endIndent: 10,),
                           ListTile(
                             leading: Text("Moodle ID", textAlign: TextAlign.left,),
-                            title: Text('${rcvdData[0]['moodle id']}',textAlign: TextAlign.right,),
+                            title: Text('${rcvdData['moodle id']}',textAlign: TextAlign.right,),
                           ),
                           Divider(thickness: 1,indent:10,endIndent: 10,),
                           ListTile(
                             leading: Text("Email", textAlign: TextAlign.left,),
-                            title: Text('${rcvdData[0]['email']}',textAlign: TextAlign.right,),
+                            title: Text('${rcvdData['email']}',textAlign: TextAlign.right,),
                           ),
                           Divider(thickness: 1,indent:10,endIndent: 10,),
                           ListTile(
                             leading: Text("Phone", textAlign: TextAlign.left,),
-                            title: Text('${rcvdData[0]['phone']}',textAlign: TextAlign.right,),
+                            title: Text('${rcvdData['phone']}',textAlign: TextAlign.right,),
                           ),
                         ],
                       ),
@@ -145,9 +147,8 @@ class GuestProfile extends State<Guest> {
                     Padding(
                       padding: kDefaultPadding,
                       child: Text(
-                        'on ${rcvdData[1]}',
-                        style: subTitle,
-                      ),
+                        'on $time',
+                      ) ,
                     ),
                   ],
                 ),

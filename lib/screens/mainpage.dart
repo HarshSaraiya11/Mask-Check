@@ -9,6 +9,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
+import 'guestprofile.dart';
+
 
 class Mainpage extends StatefulWidget{
   @override
@@ -86,8 +88,7 @@ class _MainScreen extends State<Mainpage>{
     FirebaseMessaging.onMessageOpenedApp.listen((message) async{
       var received = message.data;
       var time = message.sentTime;
-      print(time);
-      Navigator.pushNamed(context, '/guest', arguments: [received, time]);
+      Navigator.pushNamed(context, '/guest', arguments: received);
     });
   }
 
@@ -132,7 +133,7 @@ class _MainScreen extends State<Mainpage>{
                     builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
                       if (!snapshot.hasData) {
                         return Container(
-                          // padding: kDefaultPadding,
+                          padding: kDefaultPadding,
                           child: Center(child: Text("No one is detected without mask!",style: subTitle)),);
                       }
                       if (snapshot.connectionState == ConnectionState.waiting) {
@@ -151,7 +152,7 @@ class _MainScreen extends State<Mainpage>{
                           title: Text(data['name']),
                           subtitle: Text(data['text'],),
                         trailing: Text(DateFormat.jm().format(data['time'].toDate())),
-                        onTap: () => Navigator.pushNamed(context, '/guest'));
+                        onTap: () => Navigator.pushNamed(context, '/guest', arguments: data));
                       }).toList(),
                       );
                     },

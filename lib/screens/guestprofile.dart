@@ -6,81 +6,17 @@ import 'package:login_signup_ui_starter/theme.dart';
 import 'package:login_signup_ui_starter/screens/mainpage.dart';
 import 'package:intl/intl.dart';
 import 'mainpage.dart';
-
 class Guest extends StatefulWidget{
   @override
   GuestProfile createState() => GuestProfile();
 }
-
-
 class GuestProfile extends State<Guest> {
-
   void initState() {
     super.initState();
-    // FirebaseMessaging messaging = FirebaseMessaging.instance;
-    // messaging.getToken().then((value){
-    //   print(value);
-    // });
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   // print("message recieved while on foreground");
-    //   // print('Message data: ${message.data}');
-    //   // print(message.notification.body);
-    //   var received = message.data;
-    //   @override
-    //   Widget build(BuildContext context) {
-    //     return Scaffold(
-    //       body: Padding(
-    //         padding: kDefaultPadding,
-    //         child: SingleChildScrollView(
-    //           child: Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: [
-    //               SizedBox(
-    //                 height: 50,
-    //               ),
-    //               Text(received['name'])
-    //             ],
-    //           ),
-    //         ),
-    //       ),
-    //     );
-    //   }
-    // });
-
-    // FirebaseMessaging.onMessageOpenedApp.listen((message)  {
-    //   var received = message.data;
-    //   @override
-    //   Widget build(BuildContext context) {
-    //     return Scaffold(
-    //       body: Padding(
-    //         padding: kDefaultPadding,
-    //         child: SingleChildScrollView(
-    //           child: Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: [
-    //               SizedBox(
-    //                 height: 50,
-    //               ),
-    //               Text(received['name'])
-    //             ],
-    //           ),
-    //         ),
-    //       ),
-    //     );
-    //   }
-    // });
   }
-
   @override
   Widget build(BuildContext context) {
-    // final  Map<String, dynamic>rcvdData = ModalRoute.of(context).settings.arguments;
     Map<String, dynamic> rcvdData = ModalRoute.of(context).settings.arguments;
-    // Map<String, dynamic>stream = ModalRoute.of(context).settings.arguments;
-    // List<dynamic> stream = ModalRoute.of(context).settings.arguments;
-    // var datetime = DateFormat.yMd().add_jm().format(stream[0].toDate);
-    // List<dynamic> time = ModalRoute.of(context).settings.arguments;
-    var time = DateFormat.yMd().add_jm().add_E().format(rcvdData['time'].toDate());
-
     return Scaffold(
           body: Container(
               padding: EdgeInsets.zero,
@@ -140,20 +76,12 @@ class GuestProfile extends State<Guest> {
                         ],
                       ),
                     ),
-
                     SizedBox(
                       height: 30,
-                    ),
-                    Padding(
-                      padding: kDefaultPadding,
-                      child: Text(
-                        'on $time',
-                      ) ,
                     ),
                   ],
                 ),
               ),
-
     );
   }
 }

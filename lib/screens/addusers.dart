@@ -73,17 +73,10 @@ class AddUserScreen extends State<AddUser> {
         'profilepictures/$fileName');
     UploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
     TaskSnapshot taskSnapshot = await uploadTask;
-    /*taskSnapshot.ref.getDownloadURL().then(
-          (value) => print("Don   e: $value"),
-    );*/
-
     await taskSnapshot.ref.getDownloadURL().then((fileURL) {
       value = fileURL;
     });
-
-    //await print(value);
     return value;
-
   }
 
   @override
@@ -251,7 +244,6 @@ class AddUserScreen extends State<AddUser> {
                     ],
                   ),
                 ),
-
               ],
           ),
       ),

@@ -11,7 +11,6 @@ import 'package:intl/intl.dart';
 
 import 'guestprofile.dart';
 
-
 class Mainpage extends StatefulWidget{
   @override
   _MainScreen createState() => _MainScreen();
@@ -23,7 +22,6 @@ class _MainScreen extends State<Mainpage>{
   User user;
   bool isloggedin= false;
   Stream collectionStream = FirebaseFirestore.instance.collection('notifications').orderBy('time', descending: true).snapshots();
-
 
   checkAuthentication() async{
 
@@ -68,7 +66,6 @@ class _MainScreen extends State<Mainpage>{
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -84,32 +81,12 @@ class _MainScreen extends State<Mainpage>{
       print(message.notification.body);
     });
 
-
     FirebaseMessaging.onMessageOpenedApp.listen((message) async{
       var received = message.data;
       var time = message.sentTime;
       Navigator.pushNamed(context, '/guest', arguments: received);
     });
   }
-
-  // Widget _buildStreamBuilder(){
-  //   return Scaffold(
-  //     body: Padding(
-  //       padding: kDefaultPadding,
-  //       child: SingleChildScrollView(
-  //         child: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             SizedBox(
-  //               height: 50,
-  //             ),
-  //             Text(received['name'])
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +111,7 @@ class _MainScreen extends State<Mainpage>{
                       if (!snapshot.hasData) {
                         return Container(
                           padding: kDefaultPadding,
-                          child: Center(child: Text("No one is detected without mask!",style: subTitle)),);
+                          child: Center(child: Text("No one is detected without mask",style: subTitle)),);
                       }
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(child: CircularProgressIndicator());
@@ -150,33 +127,19 @@ class _MainScreen extends State<Mainpage>{
                                       radius: 25,
                                     ),
                           title: Text(data['name']),
-                          subtitle: Text(data['text'],),
-                        trailing: Text(DateFormat.jm().format(data['time'].toDate())),
+                          subtitle: Column(
+                            children: [
+                              Text(data['text']),
+                              // Text(DateFormat.yMd().add_jm().add_E().format(data['time'].toDate())),
+                            ],
+                          ),
+                        trailing: Text(DateFormat.Md().add_jm().format(data['time'].toDate())),
                         onTap: () => Navigator.pushNamed(context, '/guest', arguments: data));
                       }).toList(),
                       );
                     },
                 ),
               )
-              // Flexible(
-              //   child: ListView.builder(
-              //     scrollDirection: Axis.vertical,
-              //     // shrinkWrap: true,
-              //     itemCount: list.length,
-              //     itemBuilder: (context, index)
-              //     {
-              //       return ListTile(
-              //         leading: CircleAvatar(
-              //           backgroundImage: AssetImage('assets/images/profile_image.png'),
-              //           backgroundColor: kPrimaryColor,
-              //           foregroundImage: AssetImage('assets/images/profile_image.png'),
-              //         ),
-              //         title: Text(list[index]),
-              //         subtitle: Text("was seen not wearing a mask in the college premises!"),
-              //       );
-              //     },
-              //   ),
-              // )
               ],
           ),
       ),
